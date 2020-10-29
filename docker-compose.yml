@@ -1,0 +1,57 @@
+version: '3.1'
+
+services:
+
+  
+
+ prometheus:
+
+   image: prom/prometheus
+
+   volumes:
+
+     - ./prometheus/:/etc/prometheus/
+
+   ports:
+
+     - 9090:9090
+
+   networks:
+
+     - monit
+
+
+
+ grafana:
+
+   image: grafana/grafana
+
+   volumes:
+
+     - ./grafana/:/etc/grafana/
+     - /home/intel-monit/grafana-storage/:/var/lib/grafana/
+
+
+   ports:
+
+     - 3000:3000
+
+   networks:
+
+     - monit
+
+
+ pushgateway:
+
+   image: prom/pushgateway
+
+   ports:
+     - 9091:9091
+
+   networks: 
+
+     - monit
+
+networks:
+
+  monit:
